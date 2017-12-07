@@ -4,6 +4,8 @@ title: Minority Report
 
 Alejandro Kantor, Kevin Leiby, Zain Shahid, Katriel Friedman
 
+## Home
+
 **Objective:** Forecast the number of murders in each metro area using data on the previous year. 
 
 **Approach:** 
