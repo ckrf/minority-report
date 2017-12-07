@@ -1,7 +1,6 @@
 ---
-title: Exploration
+title: EDA
 notebook: EDA.ipynb
-nav_include: 1
 ---
 
 ## Contents
@@ -52,6 +51,7 @@ missing = df_crime.agg(func = lambda x: np.mean(pd.isnull(x)))
 
 
 ```python
+# incorporate year in missing analysis
 
 missing.hist(bins=50)
 
@@ -918,6 +918,7 @@ plt.savefig('../EDA/scatter_murder by race=black')
 
 
 ```python
+# American Indian
 
 sns.set(style="white", color_codes=True)
 
@@ -934,6 +935,7 @@ g.savefig('../EDA/scatter reg_murder by race=amerindian')
 
 
 ```python
+# Less than HS Education (limited data availability)
 
 sns.set(style="white", color_codes=True)
 
@@ -967,14 +969,17 @@ plt.savefig('scatter_murder by % over 25 lacking HS diploma')
 
 
 ```python
+# only variables with non-missing data (2016)
 
 y = df_eda['murder_pc']
 X = df_eda[['ln_pop_total', 'poverty_rate_18over']]
 
 X = sm.add_constant(X)
 
+# Create OLS class instance
 est = sm.OLS(y, X, missing='drop')
 
+# Use the fit method in the instance for fitting a linear regression model
 results_temp = est.fit()
 
 print(results_temp.summary())
@@ -1012,14 +1017,17 @@ print(results_temp.summary())
 
 
 ```python
+# Including variables with significant missing data (2016)
 
 y = df_eda['murder_pc']
 X = df_eda[['ln_pop_total', 'income_hh_median', 'poverty_rate_18over', 'demog_black', 'demog_amerindian', 'education_over25_lessthanhs']]
 
 X = sm.add_constant(X)
 
+# Create OLS class instance
 est = sm.OLS(y, X, missing='drop')
 
+# Use the fit method in the instance for fitting a linear regression model
 results_temp = est.fit()
 
 print(results_temp.summary())
@@ -1063,14 +1071,17 @@ print(results_temp.summary())
 
 
 ```python
+# Data available for 2006
 
 y = df_eda['murder_pc']
 X = df_eda[['ln_pop_total', 'pop_16over', 'demog_sex_ratio', 'demog_child_dep_ratio']]
 
 X = sm.add_constant(X)
 
+# Create OLS class instance
 est = sm.OLS(y, X, missing='drop')
 
+# Use the fit method in the instance for fitting a linear regression model
 results_temp = est.fit()
 
 print(results_temp.summary())
@@ -1113,6 +1124,7 @@ print(results_temp.summary())
 
 ```python
 
+# census_pop
 Total; Estimate; Total households
 Total; Estimate; Total population
 
@@ -1122,6 +1134,7 @@ Total; Estimate; Total population - SUMMARY INDICATORS - Sex ratio (males per 10
 Total; Estimate; Total population - SUMMARY INDICATORS - Child dependency ratio
 
 
+# income
 Total; Estimate; EARNINGS IN THE PAST 12 MONTHS (IN 2006 INFLATION-ADJUSTED DOLLARS) FOR FULL-TIME, YEAR-ROUND WORKERS - Population 16 years and over with earnings - Median earnings (dollars) for full-time, year-round workers: - Female
 Total; Estimate; EARNINGS IN THE PAST 12 MONTHS (IN 2006 INFLATION-ADJUSTED DOLLARS) FOR FULL-TIME, YEAR-ROUND WORKERS - Population 16 years and over with earnings - Median earnings (dollars) for full-time, year-round workers: - Male
 Total; Estimate; Median Household income (dollars)
@@ -1130,11 +1143,13 @@ Total; Estimate; Median earnings (dollars) for full-time, year-round workers: - 
 
 Percent; Estimate; POVERTY STATUS IN THE PAST 12 MONTHS - Civilian population 18 years and over for whom poverty status is determined - Income in the past 12 months below poverty level
 
+# unemployment
 Unemployment rate; Estimate; PERCENT IMPUTED - Employment status for population 16 years and over
 Total; Estimate; EMPLOYMENT STATUS - Population 16 years and over - In labor force - Civilian labor force - Unemployed - Percent of civilian labor force
 
 
 
+# demographics 
 Total; Estimate; Median number of rooms
 
 Total; Estimate; EDUCATIONAL ATTAINMENT - Population 25 years and over - Less than high school graduate
