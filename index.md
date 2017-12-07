@@ -1,6 +1,5 @@
 ---
 title: Minority Report, or Forecasting murders in metro areas
-layout: post
 ---
 
 Alejandro Kantor, Kevin Leiby, Zain Shahid, Katriel Friedman
