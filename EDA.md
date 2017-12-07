@@ -11,26 +11,6 @@ notebook: EDA.ipynb
 
 
 
-```python
-import numpy as np
-import pandas as pd
-import matplotlib
-import matplotlib.pyplot as plt
-
-from IPython.display import Image
-from IPython.display import display
-
-%matplotlib inline
-
-import statsmodels.api as sm
-from statsmodels.api import OLS
-
-
-import seaborn as sns
-sns.set(style="whitegrid", color_codes=True)
-import warnings
-warnings.filterwarnings('ignore')
-```
 
 
 
