@@ -1,5 +1,5 @@
 ---
-title: demographics
+title: Exploration
 notebook: EDA.ipynb
 nav_include: 1
 ---
