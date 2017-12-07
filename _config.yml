@@ -1,0 +1,9 @@
+theme: jekyll-theme-primer
+title: Minority Report
+description: Forecasting murders with the all-seeing eye of the US Census Bureau
+baseurl:
+markdown: kramdown
+kramdown:
+    math_engine: mathjax
+    input: GFM
+    syntax_highlighter: rouge
