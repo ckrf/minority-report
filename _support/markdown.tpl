@@ -10,20 +10,13 @@
 {%- endblock output_prompt %}
 
 {% block input %}
-{% if cell.metadata.hide == True %}
+{% if cell.metadata.hide == True or nb.metadata.hide_input  %}
 {% else %}
 ```{% if nb.metadata.language_info %}{{ nb.metadata.language_info.name }}{% endif %}
 {{ cell.source}}
 ```
 {% endif %}
 {% endblock input %}
-
-{% block output_group -%}
-{%- if cell.metadata.hide_output or nb.metadata.hide_input -%}
-{%- else -%}
-    {{ super() }}
-{%- endif -%}
-{% endblock output_group %}
 
 {% block error %}
 {{ super() }}
