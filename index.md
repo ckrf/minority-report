@@ -1,15 +1,11 @@
 ---
-title: Minority Report
+title: Minority Report: Forecasting murders in metro areas
 ---
+Alejandro Kantor, Kevin Leiby, Zain Shahid, Katriel Friedman
 
-This is the home page
+## Under construction
 
-## Lets have fun
+As a result the navbar is not yet ready
 
->here is a quote
+But you can find a good Markdown reference here: [](https://raw.githubusercontent.com/barryclark/www.jekyllnow.com/gh-pages/_posts/2014-6-19-Markdown-Style-Guide.md)
 
-Here is *emph* and **bold**.
-
-Here is some inline math $\alpha = \frac{\beta}{\gamma}$ and, of-course, E rules:
-
-$$ G_{\mu\nu} + \Lambda g_{\mu\nu}  = 8 \pi T_{\mu\nu} . $$
