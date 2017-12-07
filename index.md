@@ -1,4 +1,5 @@
-title: Minority Report: Forecasting murders in metro areas
+---
+title: Minority Report, or Forecasting murders in metro areas
 layout: post
 ---
 
