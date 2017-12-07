@@ -1,12 +1,13 @@
 ---
-title: Minority Report, or Forecasting murders in metro areas
+title: Minority Report
 ---
 
 Alejandro Kantor, Kevin Leiby, Zain Shahid, Katriel Friedman
 
-## Under construction
+**Objective:** Forecast the number of murders in each metro area using data on the previous year. 
 
-As a result the navbar is not yet ready
-
-But you can find a good Markdown reference here: [](https://raw.githubusercontent.com/barryclark/www.jekyllnow.com/gh-pages/_posts/2014-6-19-Markdown-Style-Guide.md)
+**Approach:** 
+- Withhold 2 years of data as a test set.
+- Employ exploratory data analysis (EDA) to inspire model building.
+- Assess model performance as test set $R^2$
 
