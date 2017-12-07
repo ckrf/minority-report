@@ -1,6 +1,5 @@
 ---
 title: Minority Report
-nav_include: 0
 ---
 
 Alejandro Kantor, Kevin Leiby, Zain Shahid, Katriel Friedman
