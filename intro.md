@@ -19,7 +19,7 @@ _Predictors: MSA averages and totals of household traits_ from the American Comm
 - Used American FactFinder Download Center from USCB to download numerous tables per year
 - Downloaded the first table in each set of summary tables (major indicators) 
 - Many missing values due to:
-- * Some predictors are not available and we have not yet removed them
-- * Some predictors are only available for MSAs above a certain population
-- * Several MSA-years with no data available
+  * Some predictors are not available and we have not yet removed them
+  * Some predictors are only available for MSAs above a certain population
+  * Several MSA-years with no data available
 - 5953 predictors, of which at most 4134 in the most complete observation
