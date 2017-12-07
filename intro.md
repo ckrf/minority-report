@@ -9,7 +9,7 @@ nav_include: 1
 {: toc}
 
 ## Data description
-- _Outcome variable: number of murders per MSA-year_ from the FBI. 
+_Outcome variable: number of murders per MSA-year_ from the FBI. 
 - Located tables on separate FBI pages by year
 - Programmatically scraped data using BeautifulSoup 
 - Data present for all MSA-years except 1 (Flint, 2015)
@@ -23,3 +23,11 @@ _Predictors: MSA averages and totals of household traits_ from the American Comm
   * Some predictors are only available for MSAs above a certain population
   * Several MSA-years with no data available
 - 5953 predictors, of which at most 4134 in the most complete observation
+
+_Supplementary (predictors): unemployment data_ from Bureau of Labor Statisticso
+- Downloaded as a panel (MSA x month) 
+- Calculated annual statistics:
+  * maximum level
+  * minimum level
+  * change over year
+- merged with remaining data
