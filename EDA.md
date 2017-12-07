@@ -43,5 +43,18 @@ The variable's predictive power may be strongest in conjunction with other varia
 ![](EDA_files/scatter reg_murder by poverty rate.png "Murders vs poverty")
 ![](EDA_files/scatter reg_murder by HH income.png "Murders vs income")
 
+With respect to race, the proportion of African American population in a city is strongly (positively) associated with higher murder rates.
 
+*Figure 5: Racial composition also predicts murder rates sharply*
 
+![](EDA_files/scatter reg_murder by race=black.png "Murders vs race==black")
+
+## Strength of observed relationships
+
+For cities without missing data in the preceding predictor variables, a simple OLS model achieved an $R^2$ of 0.664, although variables like population and income do not have a statistically significant relationship with the murder rate in this model.
+**In other words, the relationships described above are largely "absorbed" by demographic variables, particularly racial composition.**
+When only population and poverty rate are included in an OLS prediction model, the $R^2$ falls to 0.128, suggesting the importance of interactive effects.
+
+## Conclusion
+
+We will try to forecast the number of murders for the subsequent year. We’ll test set R2  to assess performance. The EDA highlights the strong skew of the murder rate, which suggests different types of models would perform better in the high-crime metro areas than in low-crime metro areas. This suggests we should explore ensemble methods. 
