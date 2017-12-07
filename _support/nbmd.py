@@ -11,9 +11,11 @@ fdtoread = open(filetoread)
 fileprefix = ".".join(filetoread.split('.')[:-1])
 filetowrite = fileprefix+".newmd"
 buffer = ""
+firstheader = True
 for line in fdtoread:
-    if line[0:2]=='# ':#assume title
+    if firstheader and line[0:2]=='# ':#assume title
         title = line.strip()[2:]
+        firstheader = False
     else:
         buffer = buffer + line
 fdtoread.close()
