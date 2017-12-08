@@ -1,17 +1,9 @@
----
-title: Predictive Modeling
-notebook: models.ipynb
----
-
-## Contents
-{:.no_toc}
-*  
-{: toc}
 
 
 
 
 
+# Predictive Modeling
 
 ## Baseline ("Very simple") Model
 
@@ -24,32 +16,6 @@ Performance in terms of $R^2$:
 
 
 
-```python
-pd.reset_option("display.float_format")
-
-# print("R2 at a murder count level")
-ols_model = LinearRegression() 
-ols_model.fit(x_train[x_vars_very_simple],y_train)
-vs_trn_nr = calc_rsquared(ols_model,x_train[x_vars_very_simple],y_train,population_train)
-vs_tst_nr = calc_rsquared(ols_model,x_test[x_vars_very_simple],y_test,population_test)
-
-# print("R2 at a murder rate level")
-ols_model.fit(x_train[x_vars_very_simple],y_train)
-vs_trn_rt = r2_score(y_train,ols_model.predict(x_train[x_vars_very_simple]))
-vs_tst_rt = r2_score(y_test,ols_model.predict(x_test[x_vars_very_simple]))
-d = {
-    'In sample': [
-        vs_trn_nr,
-        vs_trn_rt
-    ], 'Out-of-sample': [
-        vs_tst_nr,
-        vs_tst_rt
-    ]
-}
-tab = pd.DataFrame.from_dict(d, orient="index")
-tab.columns = ["Murder count", "Murder rate"]
-tab
-```
 
 
 
@@ -198,10 +164,6 @@ The results, in terms of average $R^2$ across the 3-fold cross-validation sets a
 
 
 
-```python
-# print("Best models")
-df_r2_sum.iloc[0:9,:]
-```
 
 
 
@@ -279,14 +241,6 @@ Evaluating the best model on the test set produces:
 
 
 
-```python
-best_model = df_r2_sum.index[0]
-model = d_models_lin[best_model ]
-model.fit(x_train,y_train)
-r2 = calc_rsquared(model, x_test, y_test,population_test)
-print("R squared of best model in test set:\n",best_model)
-print(r2)
-```
 
 
     R squared of best model in test set:
@@ -306,25 +260,6 @@ Interestingly, in the training set, the model performs comparatively poorly on M
 
 
 
-```python
-sns.set_context("poster")
-plt.subplot(1, 2, 1)
-plt.scatter(model.predict(x_train)/one_million *population_train, 
-            y_train_count)
-plt.title("Training set")
-plt.ylabel("actual")
-plt.xlabel("predicted")
-plt.plot(plt.gca().get_xlim(), plt.gca().get_xlim(), color="gray")
-
-plt.subplot(1, 2, 2)
-plt.scatter(model.predict(x_test)/one_million*population_test, 
-            y_test_count)
-plt.title("Test set")
-plt.ylabel("actual")
-plt.xlabel("predicted")
-plt.plot(plt.gca().get_xlim(), plt.gca().get_xlim(), color="gray")
-plt.show()
-```
 
 
 
@@ -335,16 +270,6 @@ Because Ridge is an extension of OLS, it is easy to interpret the coefficients o
 
 
 
-```python
-df_coef_lin = pd.DataFrame(dict(variable = x_train.columns,
-                            coef = model.coef_))
-df_coef_lin = df_coef_lin.sort_values("coef")
-df_description = get_descriptions(list(df_coef_lin["variable"]), df_meta)
-df_coef_lin = pd.merge(df_coef_lin,df_description, how="left")
-
-l_obs = [0,1,2,3,4,5,6,7,-7,-8,-6,-5,-4,-2,-1]
-df_coef_lin.iloc[l_obs,:]
-```
 
 
 
@@ -474,16 +399,6 @@ Visually:
 
 
 
-```python
-sns.set_context("notebook")
-
-l_obs = [0,1,2,3,4,5,-6,-5,-4,-2,-1]
-coef_lin = df_coef_lin.iloc[l_obs,:]["coef"]
-coef_lin.index = df_coef_lin.iloc[l_obs,:]["variable"]
-plot_coef_lin = coef_lin.plot(kind="barh")
-plot_coef_lin.set(xlabel="Beta Coefficient", ylabel="")
-plt.show()
-```
 
 
 
