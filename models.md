@@ -398,6 +398,32 @@ Notably these values are quite large (many MSAs only had 10 or fewer murders). T
 
 ## Conclusions
 
+We saw that the number and rates of murders is not a random phenomenon in aggregate.
+Rather, demographic and economic predictors are pretty good at forecasting next-year murder rates, and even our "very simple" model of three variables (and population) achieved an $R^2$ of 0.75.
+However, a "ceiling" did seem to be approached through linear regression model with census and unemployment data, and our best model achieved an $R^2$ of 0.85.
+
+A strength of our approach was its relative linear-regression simplicity that allowed for straight-forward identification of predictive covariates and interpretation of their predictive power in our models.
+Additionally, iterative addition of variables and complexity (ridge and lasso to regularize our regressions from a pool of thousands of predictor variables) helped us see the relative utility of additional variables and diminishing returns to higher orders of model and validation complexity.
+
+<u>Room for improvement</u>
+
+Methodologically, we could improve our model by working more on ensemble models that would be better at homing in on characteristics of metro areas in which crime is difficult to predict on the first pass.
+We included AdaBoost but did not explore stacking or random forest methods.
+
+The approaches we tried kept our focus exclusively at the MSA-level of observation.
+It is possible that higher level factors (states or climatic zones) might play a large role.
+If so, hierarchical modeling approaches would have improved model performance.
+
+One big question for further exploration is why our model performs so poorly at predicting murder *rates* directly (rather than counts, which could be used to calculate rates).
+To do this, we would need to better understand scaling effects to determine how our count- or proportion-based predictor variables could best be leveraged to model murder rates.
+
+Our forecasting model could potentially be improved by adding additional predictor indicators at the state, MSA, or county levels.
+In addition to economic indicators, we could add data from other sources (or calculate new variables) on gun ownership, lead history, year-to-year changes in demographics, historic abortion rates, and drug cases at hospitals.
+
+Apart from adding conceptually new variables, we could also explore interactive effects between variables (with interaction terms), non-linear effects (with polynomial terms), or fixed effects of geographic units like US states.
+And we could use more of the census data if we imputed missing values and completed additional data cleaning (reconciling variables with different names across year-to-year datasets that described the same thing).
+Additional dummies could be created based on variable missing-ness to allow for inclusion of more variables that exist for some years but not for others.
+
 ## Methodological Appendix
 
 In addition to the procedures described above:
