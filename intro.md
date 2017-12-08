@@ -8,7 +8,7 @@ nav_include: 1
 *  
 {: toc}
 
-###Literature Review
+### Literature Review
 
 What factors lead to higher murder rates? Or even more simply, what factors are associated with violent crime that might help us predict and forecast murder rates? 
 
@@ -43,7 +43,7 @@ _Predictors: MSA averages and totals of household traits_ from the American Comm
 - Used American FactFinder Download Center from USCB to download numerous tables per year
 - Downloaded the first table in each set of summary tables (major indicators) 
 - Many missing values due to:
-  * Some predictors are not available and we have not yet removed them
+  * Some predictors are not available 
   * Some predictors are only available for MSAs above a certain population
   * Several MSA-years with no data available
 - 5953 predictors, of which at most 4134 in the most complete observation

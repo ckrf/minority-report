@@ -58,3 +58,6 @@ When only population and poverty rate are included in an OLS prediction model, t
 ## Conclusion
 
 We will try to forecast the number of murders for the subsequent year. We’ll test set R2  to assess performance. The EDA highlights the strong skew of the murder rate, which suggests different types of models would perform better in the high-crime metro areas than in low-crime metro areas. This suggests we should explore ensemble methods. 
+
+The EDA also revealed that there is a significant amount of missing data (documented [here](intro.html)). 
+We will impute values where possible and control for missingness that so we are able to employ the information contained in series with some missing values. 
