@@ -10,7 +10,7 @@
 {%- endblock output_prompt %}
 
 {% block input %}
-{% if cell.metadata.hide == True or nb.metadata.hide_input  %}
+{% if cell.metadata.hide or nb.metadata.hide_input or cell.metadata.collapsed  %}
 {% else %}
 ```{% if nb.metadata.language_info %}{{ nb.metadata.language_info.name }}{% endif %}
 {{ cell.source}}
