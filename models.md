@@ -1,9 +1,17 @@
+---
+title: Predictive Modeling
+notebook: models.ipynb
+---
+
+## Contents
+{:.no_toc}
+*  
+{: toc}
 
 
 
 
 
-# Predictive Modeling
 
 ## Baseline ("Very simple") Model
 
