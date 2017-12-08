@@ -2,7 +2,7 @@
 title: Minority Report
 ---
 
-Alejandro Kantor, Kevin Leiby, Zain Shahid, Katriel Friedman
+Alejandro Kantor, Kevin Leiby, Zain Shahid, Katriel Friedman (Group #7)
 
 ## Home
 
