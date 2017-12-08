@@ -298,7 +298,7 @@ Because Ridge is an extension of OLS, it is easy to interpret the coefficients o
       <th>1</th>
       <td>-13.458215</td>
       <td>pop_language_english</td>
-      <td>NaN</td>
+      <td>Total English speakers</td>
     </tr>
     <tr>
       <th>2</th>
@@ -370,12 +370,12 @@ Because Ridge is an extension of OLS, it is easy to interpret the coefficients o
       <th>1139</th>
       <td>3.225564</td>
       <td>missing_S06_HC01_EST_VC20</td>
-      <td>NaN</td>
+      <td>Missing: Population Total; White Only</td>
     </tr>
     <tr>
       <th>1140</th>
       <td>10.212589</td>
-      <td>missing_S06_HC03_EST_VC25</td>
+      <td>Missing: Population Total; Other race</td>
       <td>NaN</td>
     </tr>
   </tbody>
