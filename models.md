@@ -1,6 +1,7 @@
 ---
 title: Predictive Modeling
 notebook: models.ipynb
+nav_include: 2
 ---
 
 ## Contents
