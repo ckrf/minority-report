@@ -1,7 +1,6 @@
 ---
-title: Predictive Modeling
+title: Forecasts
 notebook: models.ipynb
-nav_include: 2
 ---
 
 ## Contents
@@ -13,6 +12,12 @@ nav_include: 2
 
 
 
+
+Our aim is to predict the numbers of murders in each MSA in a given year using Census and BLS data for the previous year. In principle the resulting model should be useful for making budgetary decisions about law enforcement and corrections spending in advance. Consequently, we use the following strategy to evaluate models:
+1) Use data from year $t$ to predict the number of murders in year $t+1$ (all our x variables have lag 1).
+2) Hold apart the number of murders in years 2015 and 2016 as a test set to evaluate the final model. It is better to reserve the latest available years because we expect them to have the most in common with future years for which the model can be employed. 
+
+Initially we report results for both the murder rate and the number of murders. 
 
 ## Baseline ("Very simple") Model
 
@@ -55,13 +60,13 @@ Performance in terms of $R^2$:
   <tbody>
     <tr>
       <th>In sample</th>
-      <td>0.862041</td>
-      <td>0.113483</td>
+      <td>0.817760</td>
+      <td>0.055445</td>
     </tr>
     <tr>
       <th>Out-of-sample</th>
-      <td>0.781324</td>
-      <td>0.085333</td>
+      <td>0.747537</td>
+      <td>0.030111</td>
     </tr>
   </tbody>
 </table>
@@ -83,32 +88,6 @@ Performance in terms of $R^2$:
 
 
 
-```python
-pd.reset_option("display.float_format")
-
-# print("R2 at a murder count level")
-ols_model = LinearRegression() 
-ols_model.fit(x_train[vars_small_model],y_train)
-vs_trn_nr = calc_rsquared(ols_model,x_train[vars_small_model],y_train,population_train)
-vs_tst_nr = calc_rsquared(ols_model,x_test[vars_small_model],y_test,population_test)
-
-# print("R2 at a murder rate level")
-ols_model.fit(x_train[vars_small_model],y_train)
-vs_trn_rt = r2_score(y_train,ols_model.predict(x_train[vars_small_model]))
-vs_tst_rt = r2_score(y_test,ols_model.predict(x_test[vars_small_model]))
-d = {
-    'In sample': [
-        vs_trn_nr,
-        vs_trn_rt
-    ], 'Out-of-sample': [
-        vs_tst_nr,
-        vs_tst_rt
-    ]
-}
-tab = pd.DataFrame.from_dict(d, orient="index")
-tab.columns = ["Murder count", "Murder rate"]
-tab
-```
 
 
 
@@ -139,13 +118,13 @@ tab
   <tbody>
     <tr>
       <th>In sample</th>
-      <td>0.861738</td>
-      <td>0.128967</td>
+      <td>0.856380</td>
+      <td>0.158388</td>
     </tr>
     <tr>
       <th>Out-of-sample</th>
-      <td>0.782953</td>
-      <td>0.102937</td>
+      <td>0.823235</td>
+      <td>0.109559</td>
     </tr>
   </tbody>
 </table>
@@ -158,7 +137,7 @@ From this point forward we report results in terms of the _murder count_ rather 
 ## Advanced models
 
 To move beyond the small OLS models of intuitively plausible variables, we employ:
-- regularization or decision trees (in AdaBoost) to cope with a large number of potential features
+- regularization or decision trees (in AdaBoost) to cope with a large number of potential features (approximately 1440)
 - cross-validation to select a model and parameters.
 
 In particular, we jointly select the best algorithm and parameters through cross validation. The algorithms we include are:
@@ -205,40 +184,40 @@ The results, in terms of average $R^2$ across the 3-fold cross-validation sets a
   </thead>
   <tbody>
     <tr>
-      <th>Ridge alpha:10.0</th>
-      <td>0.864557</td>
-    </tr>
-    <tr>
-      <th>Elastic ratio:0.5 , alpha:0.01</th>
-      <td>0.863767</td>
-    </tr>
-    <tr>
-      <th>Elastic ratio:0.3 , alpha:0.01</th>
-      <td>0.863436</td>
-    </tr>
-    <tr>
-      <th>Elastic ratio:0.1 , alpha:0.01</th>
-      <td>0.862874</td>
-    </tr>
-    <tr>
-      <th>Elastic ratio:0.7 , alpha:0.01</th>
-      <td>0.862690</td>
+      <th>Lasso alpha:0.1</th>
+      <td>0.896383</td>
     </tr>
     <tr>
       <th>Elastic ratio:0.9 , alpha:0.1</th>
-      <td>0.862421</td>
+      <td>0.892084</td>
     </tr>
     <tr>
-      <th>Lasso alpha:0.1</th>
-      <td>0.861477</td>
-    </tr>
-    <tr>
-      <th>Ridge alpha:100.0</th>
-      <td>0.860444</td>
+      <th>Ridge alpha:1000.0</th>
+      <td>0.890841</td>
     </tr>
     <tr>
       <th>Elastic ratio:0.7 , alpha:0.1</th>
-      <td>0.859598</td>
+      <td>0.888808</td>
+    </tr>
+    <tr>
+      <th>Elastic ratio:0.1 , alpha:1.0</th>
+      <td>0.887917</td>
+    </tr>
+    <tr>
+      <th>Elastic ratio:0.3 , alpha:1.0</th>
+      <td>0.887770</td>
+    </tr>
+    <tr>
+      <th>Elastic ratio:0.5 , alpha:1.0</th>
+      <td>0.885713</td>
+    </tr>
+    <tr>
+      <th>Elastic ratio:0.5 , alpha:0.1</th>
+      <td>0.885675</td>
+    </tr>
+    <tr>
+      <th>Elastic ratio:0.3 , alpha:0.1</th>
+      <td>0.883998</td>
     </tr>
   </tbody>
 </table>
@@ -253,8 +232,8 @@ Evaluating the best model on the test set produces:
 
 
     R squared of best model in test set:
-     Ridge alpha:10.0
-    0.850537508869
+     Lasso alpha:0.1
+    0.853266617989
 
 
 Because the $R^2$ in the validation set is slightly better than in the test set, there is some indication of minor overfitting. However, this is a significantly smaller gap than observed in the baseline and simple extension model. Overfitting has been reduced, even though we have employed many more features. 
@@ -272,7 +251,7 @@ Interestingly, in the training set, the model performs comparatively poorly on M
 
 
 
-![png](models_files/models_17_0.png)
+![png](models_files/models_18_0.png)
 
 
 Because Ridge is an extension of OLS, it is easy to interpret the coefficients on each of the variables, shown below:
@@ -310,93 +289,93 @@ Because Ridge is an extension of OLS, it is easy to interpret the coefficients o
   <tbody>
     <tr>
       <th>0</th>
-      <td>-16.475116</td>
+      <td>-17.893939</td>
       <td>S06_HC02_EST_VC25</td>
       <td>Native; born in state of residence; Estimate; ...</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-14.404695</td>
-      <td>S06_HC03_EST_VC25</td>
-      <td>Native; born in other state in the U.S.; Estim...</td>
+      <td>-13.458215</td>
+      <td>pop_language_english</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-13.172350</td>
-      <td>S06_HC01_EST_VC25</td>
-      <td>Total; Estimate; RACE AND HISPANIC OR LATINO O...</td>
+      <td>-11.053142</td>
+      <td>S06_HC02_EST_VC20</td>
+      <td>Native; born in state of residence; Estimate; ...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>-11.911406</td>
-      <td>S06_HC03_EST_VC20</td>
-      <td>Native; born in other state in the U.S.; Estim...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-10.335098</td>
-      <td>S11_HC02_EST_VC03</td>
-      <td>Married-couple family household; Estimate; Ave...</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>-8.918582</td>
+      <td>-10.569383</td>
       <td>S06_HC03_EST_VC29</td>
       <td>Native; born in other state in the U.S.; Estim...</td>
     </tr>
     <tr>
+      <th>4</th>
+      <td>-6.791582</td>
+      <td>S12_HC02_EST_VC33</td>
+      <td>Now married (except separated); Estimate; NATI...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>-6.242251</td>
+      <td>S06_HC01_EST_VC25</td>
+      <td>Total; Estimate; RACE AND HISPANIC OR LATINO O...</td>
+    </tr>
+    <tr>
       <th>6</th>
-      <td>-8.829600</td>
-      <td>S25_HC01_EST_VC24</td>
-      <td>Occupied housing units; Estimate; HOUSEHOLD TY...</td>
+      <td>-4.989624</td>
+      <td>S06_HC03_EST_VC25</td>
+      <td>Native; born in other state in the U.S.; Estim...</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>-8.739879</td>
-      <td>S24_HC01_EST_VC10</td>
-      <td>Total; Estimate; Management, business, science...</td>
+      <td>-4.748157</td>
+      <td>S12_HC01_EST_VC30</td>
+      <td>Total; Estimate; White alone, not Hispanic or ...</td>
     </tr>
     <tr>
-      <th>1138</th>
-      <td>6.064592</td>
-      <td>S23_HC02_EST_VC01</td>
-      <td>In labor force; Estimate; Population 16 years ...</td>
+      <th>1134</th>
+      <td>2.044579</td>
+      <td>S25_HC02_EST_VC24</td>
+      <td>Owner-occupied housing units; Estimate; HOUSEH...</td>
+    </tr>
+    <tr>
+      <th>1133</th>
+      <td>2.001245</td>
+      <td>S19_HC03_EST_VC13</td>
+      <td>Married-couple families; Estimate; Median inco...</td>
+    </tr>
+    <tr>
+      <th>1135</th>
+      <td>2.045913</td>
+      <td>S13_HC01_EST_VC28</td>
+      <td>Total; Estimate; EDUCATIONAL ATTAINMENT - Grad...</td>
+    </tr>
+    <tr>
+      <th>1136</th>
+      <td>2.198169</td>
+      <td>S24_HC01_EST_VC28</td>
+      <td>Total; Estimate; Sales and office occupations:...</td>
     </tr>
     <tr>
       <th>1137</th>
-      <td>6.004667</td>
-      <td>S17_HC03_EST_VC03</td>
-      <td>Percent below poverty level; Estimate; AGE - U...</td>
+      <td>2.515365</td>
+      <td>S08_HC02_EST_VC22</td>
+      <td>Male; Estimate; Living in a place</td>
     </tr>
     <tr>
       <th>1139</th>
-      <td>6.089652</td>
-      <td>sex_ratio</td>
+      <td>3.225564</td>
+      <td>missing_S06_HC01_EST_VC20</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>1140</th>
-      <td>6.464576</td>
-      <td>S12_HC06_EST_VC33</td>
-      <td>Never married; Estimate; NATIVITY - Native</td>
-    </tr>
-    <tr>
-      <th>1141</th>
-      <td>6.484303</td>
-      <td>S06_HC02_EST_VC01</td>
-      <td>Native; born in state of residence; Estimate; ...</td>
-    </tr>
-    <tr>
-      <th>1143</th>
-      <td>8.691011</td>
-      <td>S23_HC03_EST_VC01</td>
-      <td>Employed; Estimate; Population 16 years and over</td>
-    </tr>
-    <tr>
-      <th>1144</th>
-      <td>12.632328</td>
-      <td>S11_HC04_EST_VC02</td>
-      <td>Female householder, no husband present, family...</td>
+      <td>10.212589</td>
+      <td>missing_S06_HC03_EST_VC25</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -411,7 +390,16 @@ Visually:
 
 
 
-![png](models_files/models_21_0.png)
+![png](models_files/models_22_0.png)
 
+
+Notably these values are quite large (many MSAs only had 10 or fewer murders). This suggests that these features are doing real "work" in the prediction, which is not therefore driven exclusively by the total population term.
 
 ## Conclusions
+
+## Methodological Appendix
+
+In addition to the procedures described above:
+- Missing data were imputed when fewer than 20% of observations were available
+- When imputing data we took the mean of the training set and added a corresponding dummy variable
+- Features were standardized to the mean and standard deviation of the training set
